@@ -187,7 +187,7 @@ static struct fuse_operations operations = { //основная структур
 
 int main(int argc, char *argv[])//подгрузка всего необходимого и создание шаблона системы
 {
-	static const char *system_echo_path = "/home/plastb1r/OS/lab5/mnt_fuse_not_save";
+	static const char *system_echo_path = "/home/nastya27/5/22";
 	// whitespace + \n = chinese
 	struct fuse_args args = FUSE_ARGS_INIT(argc, argv);
         // добавление директорий
