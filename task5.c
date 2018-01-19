@@ -184,17 +184,18 @@ static struct fuse_operations operations = { //основная структур
     .rename = q_rename,
 };
 
-
-int main(int argc, char *argv[])//подгрузка всего необходимого и создание шаблона системы
-{
-	static const char *system_echo_path = "/home/nastya27/5/22";
-	// whitespace + \n = chinese
-	struct fuse_args args = FUSE_ARGS_INIT(argc, argv);
-        // добавление директорий
+static void generate_tree()
+{	
+	// добавление директорий
 	add_directory("/", 0777);
 	add_directory("/bar", 0755);
 	add_directory("/bar/baz", 0744);
+}
 
+stasic void baf_tree()
+{
+	static const char *system_echo_path = "/home/nastya27/5/22";
+	
 	int bufferSize = 40000; // размер буфера 
 	char echoBuffer[bufferSize];
 	FILE *fecho = fopen(system_echo_path, "rb");
@@ -219,7 +220,14 @@ int main(int argc, char *argv[])//подгрузка всего необходи
 	add_directory("/bar/baz/foo", 0711);
 	add_file("/bar/baz/foo/cp", 0444, str);
 	add_file("/bar/baz/foo/test.txt", 0777, "a\nb\nc\nd\ne\nf\nj\n");
+}
 
+
+int main(int argc, char *argv[])//подгрузка всего необходимого и создание шаблона системы
+{	
+	struct fuse_args args = FUSE_ARGS_INIT(argc, argv);
+	baf_tree();
+	general_tree();
 	return fuse_main(args.argc, args.argv, &operations, NULL);
 }
 
